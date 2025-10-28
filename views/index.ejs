@@ -37,7 +37,8 @@
         <a class="btn btn-outline" href="/">Browse Profiles</a>
       </div>
     </section>
-    <section class="card">
+    <section class="card full-bleed">
+      <div class="container-inner">
       <h1 class="title">Find your roommate</h1>
       <form class="filters" method="GET" action="/">
         <div class="filters-row">
@@ -75,9 +76,12 @@
           <span class="count"><%= profiles.length %></span> results
         </div>
       </form>
+      </div>
     </section>
 
-    <section class="grid">
+    <section class="full-bleed">
+      <div class="container-inner">
+      <div class="grid">
       <% if (profiles.length === 0) { %>
         <div class="empty">No profiles yet. Be the first to <a href="/profiles/new">create one</a>.</div>
       <% } %>
@@ -99,6 +103,8 @@
           </div>
         </a>
       <% }) %>
+      </div>
+      </div>
     </section>
   </main>
 
