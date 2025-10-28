@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Flat - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/flats">My Flats</a>
+      <% if (currentUser) { %>
+        <form method="POST" action="/logout" style="display:inline">
+          <button class="btn btn-secondary" type="submit">Logout</button>
+        </form>
+      <% } else { %>
+        <a class="btn" href="/login">Login</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" style="max-width:720px;margin:16px auto;">
+      <h1 class="title">Add a flat</h1>
+      <form class="form" method="POST" action="/flats" enctype="multipart/form-data">
+        <div class="row">
+          <label>Title</label>
+          <input type="text" name="title" placeholder="Cozy 2BHK near city center" required />
+        </div>
+        <div class="row">
+          <label>City</label>
+          <input type="text" name="city" required />
+        </div>
+        <div class="row">
+          <label>Address</label>
+          <input type="text" name="address" required />
+        </div>
+        <div class="row">
+          <label>Monthly Rent (₹)</label>
+          <input type="number" name="rent" min="0" required />
+        </div>
+        <div class="row">
+          <label>Rooms</label>
+          <input type="number" name="rooms" min="1" required />
+        </div>
+        <div class="row">
+          <label>Amenities (comma-separated)</label>
+          <input type="text" name="amenities" placeholder="WiFi, AC, Parking" />
+        </div>
+        <div class="row">
+          <label>Description</label>
+          <textarea name="description" rows="4" placeholder="Describe the flat and nearby places"></textarea>
+        </div>
+        <div class="row">
+          <label>Contact Phone</label>
+          <input type="text" name="contactPhone" placeholder="Seller phone number" />
+        </div>
+        <div class="row">
+          <label>Photo</label>
+          <input type="file" name="photo" accept="image/*" />
+        </div>
+        <div class="actions">
+          <a class="btn btn-secondary" href="/flats">Cancel</a>
+          <button class="btn" type="submit">Create</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+    </div>
+  </footer>
+</body>
+</html>

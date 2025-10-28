@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Flats - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/flats" class="btn">My Flats</a>
+      <form method="POST" action="/logout" style="display:inline">
+        <button class="btn btn-secondary" type="submit">Logout</button>
+      </form>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="title">My Flats</h1>
+      <div class="actions" style="justify-content:flex-start;margin-bottom:10px;">
+        <a class="btn" href="/flats/new">Add Flat</a>
+      </div>
+      <% if (flats.length === 0) { %>
+        <div class="empty">No flats yet. Click "Add Flat" to create one.</div>
+      <% } %>
+      <div class="grid">
+        <% flats.forEach(f => { %>
+          <a class="card profile" href="/flats/<%= f._id %>">
+            <div class="thumb">
+              <img src="<%= f.photoUrl || 'https://placehold.co/400x300?text=No+Photo' %>" alt="<%= f.title %>" />
+            </div>
+            <div class="content">
+              <h3><%= f.title %></h3>
+              <div class="meta"><%= f.city %> • ₹<%= f.rent %> • <%= f.rooms %> rooms</div>
+              <div class="tags">
+                <% (f.amenities || []).slice(0,4).forEach(tag => { %>
+                  <span class="tag"><%= tag %></span>
+                <% }) %>
+              </div>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+    </div>
+  </footer>
+</body>
+</html>

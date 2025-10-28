@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= profile.name %> - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav>
+      <a class="btn" href="/profiles/new">Create Profile</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <article class="card">
+      <div class="profile-detail">
+        <img class="detail-photo" src="<%= profile.photoUrl || 'https://placehold.co/600x400?text=No+Photo' %>" alt="<%= profile.name %>" />
+        <div>
+          <h1 class="title"><%= profile.name %>, <%= profile.age %></h1>
+          <div class="meta"><%= profile.city %> • Budget: ₹<%= profile.budget %></div>
+          <p class="bio"><%= profile.bio %></p>
+          <div class="tags">
+            <% (profile.preferences || []).forEach(tag => { %>
+              <span class="tag"><%= tag %></span>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="container footer">© <%= new Date().getFullYear() %> RoomLink</footer>
+</body>
+</html>

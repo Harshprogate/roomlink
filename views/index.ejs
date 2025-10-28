@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoomLink - Browse Profiles</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/">Browse</a>
+      <a href="/flats">Manage Your Flats</a>
+      <a href="/chat">Chat</a>
+      <a class="btn" href="/profiles/new">Create Profile</a>
+      <% if (!currentUser) { %>
+        <a class="btn" href="/register">Get Started</a>
+        <a href="/login">Login</a>
+      <% } else { %>
+        <a href="/profile">My Profile</a>
+        <form method="POST" action="/logout" style="display:inline">
+          <button class="btn btn-secondary" type="submit">Logout</button>
+        </form>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Find your perfect roommate</h1>
+      <p>Discover compatible roommates by city, budget, and preferences.</p>
+      <div class="actions">
+        <a class="btn" href="/profiles/new">Create Profile</a>
+        <a class="btn btn-outline" href="/">Browse Profiles</a>
+      </div>
+    </section>
+    <section class="card">
+      <h1 class="title">Find your roommate</h1>
+      <form class="filters" method="GET" action="/">
+        <div class="filters-row">
+          <input type="text" name="city" placeholder="City" value="<%= filters.city %>" />
+          <select name="gender">
+            <option value="">Any gender</option>
+            <option value="male" <%= filters.gender === 'male' ? 'selected' : '' %>>Male</option>
+            <option value="female" <%= filters.gender === 'female' ? 'selected' : '' %>>Female</option>
+            <option value="other" <%= filters.gender === 'other' ? 'selected' : '' %>>Other</option>
+          </select>
+          <input type="number" name="minBudget" placeholder="Min budget" value="<%= filters.minBudget %>" />
+          <input type="number" name="maxBudget" placeholder="Max budget" value="<%= filters.maxBudget %>" />
+          <select name="sort">
+            <option value="recent" <%= filters.sort === 'recent' ? 'selected' : '' %>>Most recent</option>
+            <option value="budget_low" <%= filters.sort === 'budget_low' ? 'selected' : '' %>>Budget: Low to High</option>
+            <option value="budget_high" <%= filters.sort === 'budget_high' ? 'selected' : '' %>>Budget: High to Low</option>
+            <option value="age_low" <%= filters.sort === 'age_low' ? 'selected' : '' %>>Age: Young to Old</option>
+            <option value="age_high" <%= filters.sort === 'age_high' ? 'selected' : '' %>>Age: Old to Young</option>
+          </select>
+          <button class="btn" type="submit">Apply</button>
+        </div>
+        <div class="quick-chips">
+          <span class="chip-label">Quick filters:</span>
+          <a class="chip" href="/?gender=male">Male</a>
+          <a class="chip" href="/?gender=female">Female</a>
+          <a class="chip" href="/?minBudget=5000&maxBudget=15000">₹5k–15k</a>
+          <a class="chip" href="/?minBudget=15000&maxBudget=30000">₹15k–30k</a>
+          <a class="chip" href="/?city=<%= encodeURIComponent(filters.city || '') %>">City: <%= filters.city || 'Any' %></a>
+          <% const anyFilter = (filters.city||filters.gender||filters.minBudget||filters.maxBudget||filters.sort!=='recent'); %>
+          <% if (anyFilter) { %>
+            <a class="chip chip-clear" href="/">Clear filters</a>
+          <% } %>
+        </div>
+        <div class="results-meta">
+          <span class="count"><%= profiles.length %></span> results
+        </div>
+      </form>
+    </section>
+
+    <section class="grid">
+      <% if (profiles.length === 0) { %>
+        <div class="empty">No profiles yet. Be the first to <a href="/profiles/new">create one</a>.</div>
+      <% } %>
+
+      <% profiles.forEach(p => { %>
+        <a class="card profile" href="/profiles/<%= p._id %>">
+          <div class="thumb">
+            <img src="<%= p.photoUrl || 'https://placehold.co/400x300?text=No+Photo' %>" alt="<%= p.name %>" />
+          </div>
+          <div class="content">
+            <h3><%= p.name %>, <%= p.age %></h3>
+            <div class="meta"><%= p.city %> • Budget: ₹<%= p.budget %></div>
+            <p class="bio"><%= (p.bio || '').slice(0, 100) %><%= (p.bio || '').length > 100 ? '…' : '' %></p>
+            <div class="tags">
+              <% (p.preferences || []).slice(0,4).forEach(tag => { %>
+                <span class="tag"><%= tag %></span>
+              <% }) %>
+            </div>
+          </div>
+        </a>
+      <% }) %>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+      <div style="margin-top:6px">
+        <a href="/" style="color:inherit;text-decoration:none;margin-right:8px">Home</a>
+        <a href="/flats" style="color:inherit;text-decoration:none;margin-right:8px">Manage Your Flats</a>
+        <% if (!currentUser) { %>
+          <a href="/register" style="color:inherit;text-decoration:none;margin-right:8px">Get Started</a>
+          <a href="/login" style="color:inherit;text-decoration:none">Login</a>
+        <% } else { %>
+          <a href="/profile" style="color:inherit;text-decoration:none">My Profile</a>
+        <% } %>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

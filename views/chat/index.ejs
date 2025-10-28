@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/flats">Manage Your Flats</a>
+      <a href="/profile">My Profile</a>
+      <form method="POST" action="/logout" style="display:inline">
+        <button class="btn btn-secondary" type="submit">Logout</button>
+      </form>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" style="max-width:720px;margin:16px auto;">
+      <h1 class="title">Chat (coming soon)</h1>
+      <p class="bio">This is a placeholder. We can integrate real-time chat (Socket.IO) next. For now, you can share your phone number on flats or profiles.</p>
+      <div class="actions">
+        <a class="btn" href="/flats">Go to My Flats</a>
+        <a class="btn btn-secondary" href="/">Back Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+    </div>
+  </footer>
+</body>
+</html>

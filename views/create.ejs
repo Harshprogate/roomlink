@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Profile - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/">Browse</a>
+      <a href="/flats">Manage Your Flats</a>
+      <a href="/chat">Chat</a>
+      <a class="btn" href="/profiles/new">Create Profile</a>
+      <% if (!currentUser) { %>
+        <a class="btn" href="/register">Get Started</a>
+        <a href="/login">Login</a>
+      <% } else { %>
+        <a href="/profile">My Profile</a>
+        <form method="POST" action="/logout" style="display:inline">
+          <button class="btn btn-secondary" type="submit">Logout</button>
+        </form>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="title">Create your profile</h1>
+      <form class="form" action="/profiles" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <label>Name</label>
+          <input name="name" type="text" required />
+        </div>
+        <div class="row">
+          <label>Age</label>
+          <input name="age" type="number" min="16" max="100" required />
+        </div>
+        <div class="row">
+          <label>Gender</label>
+          <select name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>City</label>
+          <input name="city" type="text" required />
+        </div>
+        <div class="row">
+          <label>Monthly Budget (₹)</label>
+          <input name="budget" type="number" min="0" required />
+        </div>
+        <div class="row">
+          <label>Preferences (comma-separated)</label>
+          <input name="preferences" type="text" placeholder="Non-smoker, Early riser, Vegetarian" />
+        </div>
+        <div class="row">
+          <label>Bio</label>
+          <textarea name="bio" rows="4" placeholder="Say something about yourself"></textarea>
+        </div>
+        <div class="row">
+          <label>Photo</label>
+          <input name="photo" type="file" accept="image/*" />
+        </div>
+        <div class="actions">
+          <a class="btn btn-secondary" href="/">Cancel</a>
+          <button class="btn" type="submit">Create</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+      <div style="margin-top:6px">
+        <a href="/" style="color:inherit;text-decoration:none;margin-right:8px">Home</a>
+        <a href="/flats" style="color:inherit;text-decoration:none;margin-right:8px">Manage Your Flats</a>
+        <% if (!currentUser) { %>
+          <a href="/register" style="color:inherit;text-decoration:none;margin-right:8px">Get Started</a>
+          <a href="/login" style="color:inherit;text-decoration:none">Login</a>
+        <% } else { %>
+          <a href="/profile" style="color:inherit;text-decoration:none">My Profile</a>
+        <% } %>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

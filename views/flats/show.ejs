@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= flat.title %> - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/flats">My Flats</a>
+      <% if (currentUser) { %>
+        <form method="POST" action="/logout" style="display:inline">
+          <button class="btn btn-secondary" type="submit">Logout</button>
+        </form>
+      <% } else { %>
+        <a class="btn" href="/login">Login</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <article class="card">
+      <div class="profile-detail">
+        <img class="detail-photo" src="<%= flat.photoUrl || 'https://placehold.co/600x400?text=No+Photo' %>" alt="<%= flat.title %>" />
+        <div>
+          <h1 class="title"><%= flat.title %></h1>
+          <div class="meta"><%= flat.city %> • <%= flat.address %></div>
+          <div class="meta">₹<%= flat.rent %> / month • <%= flat.rooms %> rooms</div>
+          <% if (flat.contactPhone) { %>
+            <div class="meta">Contact: <a style="color:inherit" href="tel:<%= flat.contactPhone %>"><%= flat.contactPhone %></a></div>
+          <% } %>
+          <p class="bio"><%= flat.description %></p>
+          <div class="tags">
+            <% (flat.amenities || []).forEach(tag => { %>
+              <span class="tag"><%= tag %></span>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% if (isOwner) { %>
+        <div class="actions" style="margin-top:10px">
+          <a class="btn" href="/flats/<%= flat._id %>/edit">Edit</a>
+          <form method="POST" action="/flats/<%= flat._id %>?_method=DELETE" style="display:inline">
+            <button class="btn btn-secondary" type="submit">Delete</button>
+          </form>
+        </div>
+      <% } %>
+    </article>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+    </div>
+  </footer>
+</body>
+</html>

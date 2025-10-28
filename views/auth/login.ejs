@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - RoomLink</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container header">
+    <a href="/" class="brand">RoomLink</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/flats">My Flats</a>
+      <a class="btn" href="/register">Create Account</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" style="max-width:520px;margin:16px auto;">
+      <h1 class="title">Welcome back</h1>
+      <form class="form" method="POST" action="/login">
+        <div class="row">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="row">
+          <label>Password</label>
+          <input type="password" name="password" required />
+        </div>
+        <div class="actions">
+          <a class="btn btn-secondary" href="/">Cancel</a>
+          <button class="btn" type="submit">Login</button>
+        </div>
+      </form>
+      <p style="margin-top:10px;color:#cfd6ea">No account? <a href="/register">Create one</a></p>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <div>
+      <span class="brand">RoomLink</span> • © <%= new Date().getFullYear() %>
+    </div>
+  </footer>
+</body>
+</html>
